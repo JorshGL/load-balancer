@@ -17,4 +17,5 @@ sudo mysql -h localhost -u root -proot < /home/vagrant/init.sql
 #Adding permissions to remote access
 echo "Adding permissions to remote access"
 sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo mysql -u root -proot -e "RENAME USER 'root'@'localhost' TO 'root'@'%';"
 sudo systemctl restart mysql.service

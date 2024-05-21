@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
     loadBalancer.vm.box = "bento/ubuntu-22.04"
     loadBalancer.vm.network :private_network, ip: "192.168.60.7"
     loadBalancer.vm.provision "file", source: "load-balancer-conf", destination: "/home/vagrant/load-balancer-conf"
-    loadBalancer.vm.provision "shell", path: "init_lb.sh"
+    loadBalancer.vm.provision "shell", path: "init_lb.sh", run: "always"
     loadBalancer.vm.hostname = "loadBalancer"
   end
 end

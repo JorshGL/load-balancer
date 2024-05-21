@@ -1,0 +1,31 @@
+config:
+  target: http://192.168.60.7:80
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 10
+      name: "Warm up"
+    - duration: 60
+      arrivalRate: 10
+      rampTo: 50
+      name: "Ramp up"
+    - duration: 300
+      arrivalRate: 50
+      name: "Sustained load"
+scenarios:
+  - name: "Create, get and delete users"
+    flow:
+      - post:
+          url: "/api/users"
+          json:
+            name: "Example"
+            email: "example@email.com"
+            username: "example"
+            password: "example"
+          capture:
+            json: "$.id"
+            as: "userId"
+      - get:
+          url: "/api/users"
+      - delete:
+          url: "/api/users/{{ userId }}"
